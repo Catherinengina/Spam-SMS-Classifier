@@ -21,6 +21,8 @@ from sklearn.metrics import accuracy_score, classification_report, confusion_mat
 import seaborn as sns
 import matplotlib.pyplot as plt 
 
+nltk.download('stopwords')
+
 
 # Load the dataset & clean
 
