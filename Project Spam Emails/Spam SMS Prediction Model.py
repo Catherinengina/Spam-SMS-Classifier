@@ -205,9 +205,51 @@ new_text_vectorized = vectorizer.transform(cleaned_new_text)
 prediction = model.predict(new_text_vectorized)
 print(f"Prediction for new text: {prediction}")
 
-
 # In[ ]:
+# Save the model and vectorizer using pickle
+    with open('spam_model.pkl', 'wb') as f:  # Changed file extension and saving
+        pickle.dump(model, f)
+    with open('tfidf_vectorizer.pkl', 'wb') as f: # Changed file extension and saving
+        pickle.dump(vectorizer, f)
 
+    print("Model and vectorizer trained and saved.")
+
+except Exception as e:
+    st.error(f"Error during training: {e}")
+    print(f"Error during training: {e}")
+
+# Load the model and vectorizer for prediction using pickle
+try:
+    with open('spam_model.pkl', 'rb') as f: # Changed file extension and loading
+        model = pickle.load(f)
+    with open('tfidf_vectorizer.pkl', 'rb') as f: # Changed file extension and loading
+        vectorizer = pickle.load(f)
+    print("Model and vectorizer loaded successfully.")
+except Exception as e:
+    st.error(f"Error loading model/vectorizer: {e}")
+    print(f"Error loading model/vectorizer: {e}")
+
+# Prediction function
+def predict_spam(text):
+    cleaned_text = clean_text(text)
+    text_tfidf = vectorizer.transform([cleaned_text])
+    prediction = model.predict(text_tfidf)[0]
+    return "Spam" if prediction == 1 else "Ham"
+
+# Streamlit UI
+st.title("Spam SMS Prediction")
+user_input = st.text_area("Enter your SMS text here:")
+
+if st.button("Predict"):
+    if user_input:
+        try:
+            prediction = predict_spam(user_input)
+            st.write(f"Prediction: {prediction}")
+        except Exception as e:
+            st.error(f"Prediction error: {e}")
+            print(f"Prediction error: {e}")
+    else:
+        st.warning("Please enter some text.")
 
 
 
