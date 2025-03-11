@@ -27,7 +27,7 @@ import matplotlib.pyplot as plt
 # In[28]:
 
 
-df = pd.read_csv('spam.csv', encoding='latin-1')
+df = pd.read_csv('Project Spam Emails/spam.csv', encoding='latin-1')
 print(df.head())
 
 
