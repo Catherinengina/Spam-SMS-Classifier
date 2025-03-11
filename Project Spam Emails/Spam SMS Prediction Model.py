@@ -239,6 +239,8 @@ def predict_spam(text):
 
 # Streamlit UI
 st.title("Spam SMS Prediction")
+st.sidebar.header("🔍 About")
+st.sidebar.write("This app classifies SMS messages as Spam or Ham using a Naïve Bayes model.") 
 user_input = st.text_area("Enter your SMS text here:")
 
 if st.button("Predict"):
