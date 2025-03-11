@@ -205,21 +205,17 @@ new_text_vectorized = vectorizer.transform(cleaned_new_text)
 prediction = model.predict(new_text_vectorized)
 print(f"Prediction for new text: {prediction}")
 
-# In[ ]:
 # Save the model and vectorizer using pickle
-    with open('spam_model.pkl', 'wb') as f:  # Changed file extension and saving
+    with open('spam_model.pkl', 'wb') as f:
         pickle.dump(model, f)
-    with open('tfidf_vectorizer.pkl', 'wb') as f: # Changed file extension and saving
+    with open('tfidf_vectorizer.pkl', 'wb') as f:
         pickle.dump(vectorizer, f)
-
     print("Model and vectorizer trained and saved.")
-
 except Exception as e:
     st.error(f"Error during training: {e}")
     print(f"Error during training: {e}")
 
 # Load the model and vectorizer for prediction using pickle
-try:
     with open('spam_model.pkl', 'rb') as f: # Changed file extension and loading
         model = pickle.load(f)
     with open('tfidf_vectorizer.pkl', 'rb') as f: # Changed file extension and loading
